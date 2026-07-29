@@ -1,10 +1,7 @@
+import Home from "./pages/Home";
+
 function App() {
-  return (
-    <div>
-      <h1>Smart Laundry Booking System</h1>
-      <p>Welcome to our Hackathon Project 🚀</p>
-    </div>
-  );
+  return <Home />;
 }
 
 export default App;
