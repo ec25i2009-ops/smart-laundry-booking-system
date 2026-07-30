@@ -1,8 +1,26 @@
-function MachineCard({ machineName, status }) {
+
+
+function MachineCard({ machineNo, status, floor }) {
   return (
     <div className="machine-card">
-      <h3>{machineName}</h3>
-      <p>Status: {status}</p>
+      <h2>Machine {machineNo}</h2>
+
+      <p>
+        <strong>Machine No:</strong> {machineNo}
+      </p>
+
+      {floor && (
+        <p>
+          <strong>Floor:</strong> {floor}
+        </p>
+      )}
+
+      <p>
+        <strong>Status:</strong>{" "}
+        <span className={`status ${status.toLowerCase()}`}>
+          {status}
+        </span>
+      </p>
 
       <button disabled={status !== "Available"}>
         {status === "Available" ? "Book Now" : "Unavailable"}

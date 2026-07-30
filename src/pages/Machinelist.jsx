@@ -1,31 +1,70 @@
+import { useState } from "react";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import MachineCard from "../components/MachineCard";
 import "../styles/MachineList.css";
 
 function MachineList() {
+  const [selectedHostel, setSelectedHostel] = useState("");
+
+  const hostelMachines = {
+    Jasmine: [
+      { machineNo: 1, floor: "Ground Floor", status: "Available" },
+      { machineNo: 2, floor: "Ground Floor", status: "Busy" },
+      { machineNo: 3, floor: "1st Floor", status: "Available" },
+      { machineNo: 4, floor: "1st Floor", status: "Maintenance" },
+      { machineNo: 5, floor: "2nd Floor", status: "Available" },
+    ],
+
+    Ashwatha: [
+      { machineNo: 1, status: "Available" },
+      { machineNo: 2, status: "Busy" },
+      { machineNo: 3, status: "Available" },
+      { machineNo: 4, status: "Available" },
+      { machineNo: 5, status: "Maintenance" },
+    ],
+
+    Ashoka: [
+      { machineNo: 1, status: "Available" },
+      { machineNo: 2, status: "Busy" },
+      { machineNo: 3, status: "Available" },
+      { machineNo: 4, status: "Busy" },
+      { machineNo: 5, status: "Available" },
+    ],
+  };
+
   return (
-    <div className="machine-list-container">
-      <h1>Available Washing Machines</h1>
+    <>
+      <Navbar />
 
-      <MachineCard
-        machineName="Machine 1"
-        status="Available"
-      />
+      <div className="machine-list-container">
+        <h1>Available Washing Machines</h1>
 
-      <MachineCard
-        machineName="Machine 2"
-        status="Busy"
-      />
+        <label>Select Hostel</label>
 
-      <MachineCard
-        machineName="Machine 3"
-        status="Available"
-      />
+        <select
+          value={selectedHostel}
+          onChange={(e) => setSelectedHostel(e.target.value)}
+        >
+          <option value="">Choose Hostel</option>
+          <option value="Jasmine">Jasmine (Girls)</option>
+          <option value="Ashwatha">Ashwatha (Boys)</option>
+          <option value="Ashoka">Ashoka (Boys)</option>
+        </select>
 
-      <MachineCard
-        machineName="Machine 4"
-        status="Maintenance"
-      />
-    </div>
+        {selectedHostel &&
+          hostelMachines[selectedHostel].map((machine) => (
+            <MachineCard
+              key={machine.machineNo}
+              machineNo={machine.machineNo}
+              floor={machine.floor}
+              status={machine.status}
+            />
+          ))}
+      </div>
+
+      <Footer />
+    </>
   );
 }
 

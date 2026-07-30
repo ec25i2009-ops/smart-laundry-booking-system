@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Navbar() {
   return (
     <nav
@@ -13,8 +15,8 @@ function Navbar() {
       <h2>🧺 Smart Laundry</h2>
 
       <div>
-        <a
-          href="#"
+        <Link
+          to="/"
           style={{
             color: "white",
             marginRight: "20px",
@@ -22,10 +24,10 @@ function Navbar() {
           }}
         >
           Home
-        </a>
+        </Link>
 
-        <a
-          href="#"
+        <Link
+          to="/machinelist"
           style={{
             color: "white",
             marginRight: "20px",
@@ -33,17 +35,28 @@ function Navbar() {
           }}
         >
           Machines
-        </a>
+        </Link>
 
-        <a
-          href="#"
+        <Link
+          to="/booking"
+          style={{
+            color: "white",
+            marginRight: "20px",
+            textDecoration: "none",
+          }}
+        >
+          Booking
+        </Link>
+
+        <Link
+          to="/dashboard"
           style={{
             color: "white",
             textDecoration: "none",
           }}
         >
           Dashboard
-        </a>
+        </Link>
       </div>
     </nav>
   );

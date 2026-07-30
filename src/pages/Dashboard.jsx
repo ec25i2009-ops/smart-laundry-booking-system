@@ -1,24 +1,29 @@
+import Navbar from "../components/Navbar";
+import Button from "../components/Button";
+import Footer from "../components/Footer";
+import "../styles/Dashboard.css";
+
 function Dashboard() {
   return (
-    <div className="dashboard-container">
-      <h1>Smart Laundry Dashboard</h1>
+    <>
+      <Navbar />
 
-      <h2>Welcome!</h2>
+      <div className="dashboard-container">
+        <h1>Smart Laundry Dashboard</h1>
 
-      <div>
+        <h2>Welcome!</h2>
+
         <p>🧺 Total Machines: 12</p>
         <p>✅ Available Machines: 8</p>
         <p>📅 My Booking: None</p>
+
+        <Button text="Book Machine" />
+        <Button text="View Machines" />
+        <Button text="Logout" />
       </div>
 
-      <button>Book Machine</button>
-      <br /><br />
-
-      <button>View Machines</button>
-      <br /><br />
-
-      <button>Logout</button>
-    </div>
+      <Footer />
+    </>
   );
 }
 
