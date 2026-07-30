@@ -15,46 +15,13 @@ function Navbar() {
       <h2>🧺 Smart Laundry</h2>
 
       <div>
-        <Link
-          to="/"
-          style={{
-            color: "white",
-            marginRight: "20px",
-            textDecoration: "none",
-          }}
-        >
+        <Link to="/" style={{ color: "white", marginRight: "20px", textDecoration: "none" }}>
           Home
         </Link>
-
-        <Link
-          to="/machinelist"
-          style={{
-            color: "white",
-            marginRight: "20px",
-            textDecoration: "none",
-          }}
-        >
+        <Link to="/machines" style={{ color: "white", marginRight: "20px", textDecoration: "none" }}>
           Machines
         </Link>
-
-        <Link
-          to="/booking"
-          style={{
-            color: "white",
-            marginRight: "20px",
-            textDecoration: "none",
-          }}
-        >
-          Booking
-        </Link>
-
-        <Link
-          to="/dashboard"
-          style={{
-            color: "white",
-            textDecoration: "none",
-          }}
-        >
+        <Link to="/dashboard" style={{ color: "white", textDecoration: "none" }}>
           Dashboard
         </Link>
       </div>

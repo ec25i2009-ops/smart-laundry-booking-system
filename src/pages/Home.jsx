@@ -1,8 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Button from "../components/Button";
 import Footer from "../components/Footer";
+import { logOut } from "../authService";
 
 function Home() {
+  const navigate = useNavigate();
+
+  async function handleLogout() {
+    await logOut();
+    navigate("/login");
+  }
+
   return (
     <>
       <Navbar />
@@ -18,15 +27,15 @@ function Home() {
 
         <br />
 
-        <Button text="View Machines" color="#2563eb" />
+        <Button text="View Machines" color="#2563eb" onClick={() => navigate("/machines")} />
 
         <br />
 
-        <Button text="My Bookings" color="#10b981" />
+        <Button text="My Bookings" color="#10b981" onClick={() => navigate("/booking")} />
 
         <br />
 
-        <Button text="Logout" color="#ef4444" />
+        <Button text="Logout" color="#ef4444" onClick={handleLogout} />
       </div>
 
       <Footer />

@@ -1,20 +1,24 @@
-import { Routes, Route } from "react-router-dom";
-
-import Login from "./pages/Login";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import MachineList from "./pages/MachineList";
-import Booking from "./pages/Booking";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
+import Booking from "./pages/Booking";
+import Machinelist from "./pages/Machinelist";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/MachineList" element={<MachineList />} />
-      <Route path="/booking" element={<Booking />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/booking" element={<Booking />} />
+        <Route path="/machines" element={<Machinelist />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
