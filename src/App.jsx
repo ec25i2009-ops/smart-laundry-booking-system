@@ -1,7 +1,7 @@
-import Machinelist from "./pages/Machinelist";
+import Booking from "./pages/Booking";
 
 function App() {
-  return <Machinelist />;
+  return <Booking />;
 }
 
 export default App;
