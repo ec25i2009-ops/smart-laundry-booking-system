@@ -1,6 +1,17 @@
 import { useState, useEffect } from "react";
 import { collection, onSnapshot, addDoc, Timestamp } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 import { db, auth } from "../firebase";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import Button from "../components/Button";
+
+const inputStyle = {
+  width: "300px",
+  padding: "10px",
+  marginBottom: "15px",
+  borderRadius: "8px",
+};
 
 function Booking() {
   const [machines, setMachines] = useState([]);
@@ -9,14 +20,23 @@ function Booking() {
   const [time, setTime] = useState("");
   const [message, setMessage] = useState("");
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "machines"), (snapshot) => {
-      const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      const list = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
       setMachines(list);
-      if (list.length > 0 && !machineId) setMachineId(list[0].id);
+
+      if (list.length > 0 && !machineId) {
+        setMachineId(list[0].id);
+      }
     });
+
     return () => unsubscribe();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function handleBook() {
@@ -26,63 +46,108 @@ function Booking() {
       setMessage("Please log in first.");
       return;
     }
+
     if (!machineId || !date || !time) {
-      setMessage("Please fill in machine, date, and time.");
+      setMessage("Please fill in all the fields.");
       return;
     }
 
-    const startTime = new Date(`${date}T${time}`);
-    const endTime = new Date(startTime.getTime() + 45 * 60000); // 45-min cycle, matches your slot length
+    try {
+      const startTime = new Date(`${date}T${time}`);
+      const endTime = new Date(startTime.getTime() + 45 * 60000);
 
-    await addDoc(collection(db, "bookings"), {
-      userId: auth.currentUser.uid,
-      machineId,
-      startTime: Timestamp.fromDate(startTime),
-      endTime: Timestamp.fromDate(endTime),
-      status: "booked",
-    });
+      await addDoc(collection(db, "bookings"), {
+        userId: auth.currentUser.uid,
+        machineId,
+        startTime: Timestamp.fromDate(startTime),
+        endTime: Timestamp.fromDate(endTime),
+        status: "booked",
+      });
 
-    setMessage("Booking confirmed!");
+      setMessage("✅ Booking confirmed!");
+
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1000);
+
+    } catch (err) {
+      setMessage("Booking failed. Please try again.");
+      console.error(err);
+    }
   }
 
   return (
-    <div>
-      <h1>Book a Washing Machine</h1>
+    <>
+      <Navbar />
 
-      <br />
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "60px",
+        }}
+      >
+        <h1>🧺 Book a Washing Machine</h1>
 
-      <label>Select Machine</label>
-      <br />
-      <select value={machineId} onChange={(e) => setMachineId(e.target.value)}>
-        {machines.length === 0 && <option>No machines available</option>}
-        {machines.map((m) => (
-          <option key={m.id} value={m.id}>
-            {m.name || m.id}
-          </option>
-        ))}
-      </select>
+        <p>Select a machine, date and time slot.</p>
 
-      <br />
-      <br />
+        <br />
 
-      <label>Select Date</label>
-      <br />
-      <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+        <select
+          value={machineId}
+          onChange={(e) => setMachineId(e.target.value)}
+          style={inputStyle}
+        >
+          {machines.length === 0 && (
+            <option>No machines available</option>
+          )}
 
-      <br />
-      <br />
+          {machines.map((m) => (
+            <option key={m.id} value={m.id}>
+              {m.name || m.id}
+            </option>
+          ))}
+        </select>
 
-      <label>Select Time</label>
-      <br />
-      <input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
+        <br />
 
-      <br />
-      <br />
+        <input
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          style={inputStyle}
+        />
 
-      {message && <p>{message}</p>}
+        <br />
 
-      <button onClick={handleBook}>Book Now</button>
-    </div>
+        <input
+          type="time"
+          value={time}
+          onChange={(e) => setTime(e.target.value)}
+          style={inputStyle}
+        />
+
+        <br />
+
+        {message && (
+          <p
+            style={{
+              color: message.includes("confirmed") ? "green" : "red",
+              marginBottom: "15px",
+            }}
+          >
+            {message}
+          </p>
+        )}
+
+        <Button
+          text="Book Now"
+          color="#2563eb"
+          onClick={handleBook}
+        />
+      </div>
+
+      <Footer />
+    </>
   );
 }
 

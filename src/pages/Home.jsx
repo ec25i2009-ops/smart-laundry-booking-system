@@ -8,8 +8,12 @@ function Home() {
   const navigate = useNavigate();
 
   async function handleLogout() {
-    await logOut();
-    navigate("/login");
+    try {
+      await logOut();
+      navigate("/");
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
   }
 
   return (
@@ -27,15 +31,27 @@ function Home() {
 
         <br />
 
-        <Button text="View Machines" color="#2563eb" onClick={() => navigate("/machines")} />
+        <Button
+          text="View Machines"
+          color="#2563eb"
+          onClick={() => navigate("/machines")}
+        />
 
         <br />
 
-        <Button text="My Bookings" color="#10b981" onClick={() => navigate("/booking")} />
+        <Button
+          text="My Bookings"
+          color="#10b981"
+          onClick={() => navigate("/dashboard")}
+        />
 
         <br />
 
-        <Button text="Logout" color="#ef4444" onClick={handleLogout} />
+        <Button
+          text="Logout"
+          color="#ef4444"
+          onClick={handleLogout}
+        />
       </div>
 
       <Footer />

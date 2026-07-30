@@ -8,21 +8,55 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
   const navigate = useNavigate();
 
   async function handleLogin() {
     setError("");
+
+    // Restrict login to IIITDM email addresses
+    if (!email.endsWith("@iiitdm.ac.in")) {
+      setError("Please use your IIITDM institute email.");
+      return;
+    }
+
     try {
       await logIn(email, password);
-      navigate("/dashboard");
+
+      // Navigate to Home after successful login
+      navigate("/home");
     } catch (err) {
-      setError(err.message);
+      switch (err.code) {
+        case "auth/user-not-found":
+          setError("No account found. Please register first.");
+          break;
+
+        case "auth/wrong-password":
+          setError("Incorrect password.");
+          break;
+
+        case "auth/invalid-credential":
+          setError("Invalid email or password.");
+          break;
+
+        case "auth/invalid-email":
+          setError("Invalid email format.");
+          break;
+
+        default:
+          setError("Login failed. Please try again.");
+      }
     }
   }
 
   return (
     <>
-      <div style={{ textAlign: "center", marginTop: "80px" }}>
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "80px",
+        }}
+      >
         <h1>🧺 Smart Laundry Booking System</h1>
 
         <p>
@@ -69,15 +103,34 @@ function Login() {
 
         <br />
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && (
+          <p
+            style={{
+              color: "red",
+              marginBottom: "15px",
+            }}
+          >
+            {error}
+          </p>
+        )}
 
-        <Button text="Sign In" color="#2563eb" onClick={handleLogin} />
+        <Button
+          text="Sign In"
+          color="#2563eb"
+          onClick={handleLogin}
+        />
 
         <br />
         <br />
 
-        <p style={{ fontSize: "14px", color: "#666" }}>
-          Don't have an account? <Link to="/signup">Register</Link>
+        <p
+          style={{
+            fontSize: "14px",
+            color: "#666",
+          }}
+        >
+          Don't have an account?{" "}
+          <Link to="/signup">Register</Link>
         </p>
 
         <p
