@@ -1,73 +1,36 @@
+import Navbar from "../components/Navbar";
+import Button from "../components/Button";
+import Footer from "../components/Footer";
+
 function Home() {
   return (
-    <div style={{ textAlign: "center", marginTop: "60px" }}>
-      <h1>🧺 Smart Laundry Booking System</h1>
+    <>
+      <Navbar />
 
-      <h2>Welcome!</h2>
+      <div style={{ textAlign: "center", marginTop: "60px" }}>
+        <h1>🧺 Smart Laundry Booking System</h1>
 
-      <p>
-        Book your hostel washing machine quickly and avoid waiting in queues.
-      </p>
+        <h2>Welcome!</h2>
 
-      <br />
+        <p>
+          Book your hostel washing machine quickly and avoid waiting in queues.
+        </p>
 
-      <button
-        style={{
-          width: "220px",
-          padding: "12px",
-          backgroundColor: "#2563eb",
-          color: "white",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-          fontSize: "16px",
-          marginBottom: "15px",
-        }}
-      >
-        View Machines
-      </button>
+        <br />
 
-      <br />
+        <Button text="View Machines" color="#2563eb" />
 
-      <button
-        style={{
-          width: "220px",
-          padding: "12px",
-          backgroundColor: "#10b981",
-          color: "white",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-          fontSize: "16px",
-          marginBottom: "15px",
-        }}
-      >
-        My Bookings
-      </button>
+        <br />
 
-      <br />
+        <Button text="My Bookings" color="#10b981" />
 
-      <button
-        style={{
-          width: "220px",
-          padding: "12px",
-          backgroundColor: "#ef4444",
-          color: "white",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-          fontSize: "16px",
-        }}
-      >
-        Logout
-      </button>
+        <br />
 
-      <br />
-      <br />
+        <Button text="Logout" color="#ef4444" />
+      </div>
 
-      <p>📍 Hostel Laundry Room</p>
-      <p>⏰ Laundry Timings: 6:00 AM – 10:00 PM</p>
-    </div>
+      <Footer />
+    </>
   );
 }
 
