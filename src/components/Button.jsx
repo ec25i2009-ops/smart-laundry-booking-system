@@ -1,6 +1,7 @@
-function Button({ text, color }) {
+function Button({ text, color, onClick }) {
   return (
     <button
+      onClick={onClick}
       style={{
         width: "220px",
         padding: "12px",

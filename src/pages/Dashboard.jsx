@@ -1,29 +1,38 @@
-import Navbar from "../components/Navbar";
-import Button from "../components/Button";
-import Footer from "../components/Footer";
-import "../styles/Dashboard.css";
+import { useNavigate } from "react-router-dom";
+import { logOut } from "../authService";
 
 function Dashboard() {
+  const navigate = useNavigate();
+
+  async function handleLogout() {
+    await logOut();
+    navigate("/login");
+  }
+
   return (
-    <>
-      <Navbar />
+    <div className="dashboard-container">
+      <h1>Smart Laundry Dashboard</h1>
 
-      <div className="dashboard-container">
-        <h1>Smart Laundry Dashboard</h1>
+      <h2>Welcome!</h2>
 
-        <h2>Welcome!</h2>
-
+      <div>
+        {/* these three numbers are still placeholders — wiring them to
+            live Firestore counts is a good next step once machines are seeded */}
         <p>🧺 Total Machines: 12</p>
         <p>✅ Available Machines: 8</p>
         <p>📅 My Booking: None</p>
-
-        <Button text="Book Machine" />
-        <Button text="View Machines" />
-        <Button text="Logout" />
       </div>
 
-      <Footer />
-    </>
+      <button onClick={() => navigate("/booking")}>Book Machine</button>
+      <br />
+      <br />
+
+      <button onClick={() => navigate("/machines")}>View Machines</button>
+      <br />
+      <br />
+
+      <button onClick={handleLogout}>Logout</button>
+    </div>
   );
 }
 
