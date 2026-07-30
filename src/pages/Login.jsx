@@ -34,6 +34,8 @@ function Login() {
         <input
           type="email"
           placeholder="yourname@iiitdm.ac.in"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           style={{
             width: "300px",
             padding: "10px",
@@ -67,10 +69,16 @@ function Login() {
 
         <br />
 
-        <Button text="Sign In" color="#2563eb" />
+        {error && <p style={{ color: "red" }}>{error}</p>}
+
+        <Button text="Sign In" color="#2563eb" onClick={handleLogin} />
 
         <br />
         <br />
+
+        <p style={{ fontSize: "14px", color: "#666" }}>
+          Don't have an account? <Link to="/signup">Register</Link>
+        </p>
 
         <p
           style={{
