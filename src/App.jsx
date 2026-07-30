@@ -1,7 +1,7 @@
-import Home from "./pages/Home";
+import Machinelist from "./pages/Machinelist";
 
 function App() {
-  return <Home />;
+  return <Machinelist />;
 }
 
 export default App;
