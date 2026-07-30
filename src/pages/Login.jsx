@@ -7,22 +7,32 @@ function Login() {
       <div style={{ textAlign: "center", marginTop: "80px" }}>
         <h1>🧺 Smart Laundry Booking System</h1>
 
-        <p>Login to continue</p>
+        <p>
+          Reserve washing machines in advance and avoid unnecessary waiting.
+        </p>
 
         <br />
 
         <input
           type="email"
-          placeholder="College Email"
+          placeholder="yourname@iiitdm.ac.in"
           style={{
             width: "300px",
             padding: "10px",
-            marginBottom: "15px",
             borderRadius: "8px",
           }}
         />
 
-        <br />
+        <p
+          style={{
+            fontSize: "14px",
+            color: "#666",
+            marginTop: "8px",
+            marginBottom: "15px",
+          }}
+        >
+          Only IIITDM Kancheepuram institute email addresses are allowed.
+        </p>
 
         <input
           type="password"
@@ -37,12 +47,20 @@ function Login() {
 
         <br />
 
-        <Button text="Login" color="#2563eb" />
+        <Button text="Sign In" color="#2563eb" />
 
         <br />
         <br />
 
-        <p>Don't have an account? Register</p>
+        <p
+          style={{
+            fontSize: "14px",
+            color: "#666",
+          }}
+        >
+          Access is restricted to IIITDM Kancheepuram students, faculty and
+          staff.
+        </p>
       </div>
 
       <Footer />
