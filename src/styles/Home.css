@@ -1,0 +1,377 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Poppins",sans-serif;
+    background:#0A0A3E;
+}
+
+/* ===========================
+   HOME PAGE
+=========================== */
+
+.home-page{
+
+    min-height:100vh;
+
+    padding:55px 8%;
+
+    background:
+
+    radial-gradient(circle at 12% 15%, rgba(123,30,122,.28), transparent 28%),
+
+    radial-gradient(circle at 90% 15%, rgba(179,63,98,.18), transparent 32%),
+
+    radial-gradient(circle at 82% 82%, rgba(249,86,79,.10), transparent 28%),
+
+    radial-gradient(circle at 18% 82%, rgba(243,198,119,.10), transparent 24%),
+
+    linear-gradient(
+        135deg,
+        #0A0A3E 0%,
+        #173B6D 30%,
+        #235B8F 58%,
+        #4D2D82 82%,
+        #7B1E7A 100%
+    );
+
+}
+
+/* ===========================
+   HERO CARD
+=========================== */
+
+.hero-card{
+
+    background:rgba(255,255,255,.14);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:28px;
+
+    padding:50px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+    margin-bottom:50px;
+
+    box-shadow:0 20px 45px rgba(0,0,0,.25);
+
+}
+
+.hero-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:280px;
+
+    height:280px;
+
+    background:rgba(243,198,119,.10);
+
+    border-radius:50%;
+
+    top:-120px;
+
+    right:-90px;
+
+}
+
+/* ===========================
+   HERO TEXT
+=========================== */
+
+.hero-left{
+
+    z-index:2;
+
+}
+
+.hero-left h2{
+
+    color:#F3C677;
+
+    font-size:52px;
+
+    font-weight:700;
+
+    margin-bottom:18px;
+
+}
+
+.hero-left p{
+
+    color:white;
+
+    font-size:18px;
+
+    max-width:550px;
+
+    line-height:1.8;
+
+}
+
+.hero-icon{
+
+    color:#F3C677;
+
+    font-size:115px;
+
+    z-index:2;
+
+    transition:.35s;
+
+}
+
+.hero-icon:hover{
+
+    transform:scale(1.08);
+
+}
+
+/* ===========================
+   DASHBOARD
+=========================== */
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(420px,1fr));
+
+    gap:40px;
+
+}
+
+/* ===========================
+   CARD
+=========================== */
+
+.dashboard-card{
+
+    background:white;
+
+    border-radius:24px;
+
+    padding:35px;
+
+    text-align:center;
+
+    transition:.35s;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.18);
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 25px 45px rgba(0,0,0,.25);
+
+}
+
+/* Accent Borders */
+
+.machines{
+
+    border-top:8px solid #F3C677;
+
+}
+
+.bookings{
+
+    border-top:8px solid #F9564F;
+
+}
+
+.card-icon{
+
+    font-size:50px;
+
+    margin-bottom:18px;
+
+}
+
+.machines .card-icon{
+
+    color:#F3C677;
+
+}
+
+.bookings .card-icon{
+
+    color:#F9564F;
+
+}
+
+.dashboard-card h3{
+
+    font-size:38px;
+
+    color:#0A0A3E;
+
+    margin-bottom:18px;
+
+}
+
+.dashboard-card p{
+
+    color:#505050;
+
+    font-size:18px;
+
+    line-height:1.8;
+
+    margin-bottom:28px;
+
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.dashboard-card button{
+
+    width:100%;
+
+    padding:15px;
+
+    border-radius:14px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    transition:.35s;
+
+}
+
+.dashboard-card button:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/* Machines Button */
+
+.machines button{
+
+    background:#F3C677 !important;
+
+    color:#0A0A3E !important;
+
+}
+
+/* Bookings Button */
+
+.bookings button{
+
+    background:#F9564F !important;
+
+}
+
+/* ===========================
+   LOGOUT
+=========================== */
+
+.logout-section{
+
+    margin-top:45px;
+
+    text-align:center;
+
+}
+
+.logout-section button{
+
+    width:220px;
+
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:900px){
+
+.hero-card{
+
+flex-direction:column;
+
+text-align:center;
+
+gap:30px;
+
+}
+
+.hero-left h2{
+
+font-size:42px;
+
+}
+
+.hero-icon{
+
+font-size:90px;
+
+}
+
+.dashboard-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.home-page{
+
+padding:30px 20px;
+
+}
+
+.hero-card{
+
+padding:30px;
+
+}
+
+.dashboard-card{
+
+padding:25px;
+
+}
+
+.hero-left h2{
+
+font-size:34px;
+
+}
+
+.dashboard-card h3{
+
+font-size:28px;
+
+}
+
+}
