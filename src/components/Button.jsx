@@ -1,22 +1,19 @@
+import "../styles/Button.css";
+
 function Button({ text, color, onClick }) {
+
   return (
+
     <button
+      className="app-button"
+      style={{ background: color }}
       onClick={onClick}
-      style={{
-        width: "220px",
-        padding: "12px",
-        backgroundColor: color,
-        color: "white",
-        border: "none",
-        borderRadius: "8px",
-        cursor: "pointer",
-        fontSize: "16px",
-        marginBottom: "15px",
-      }}
     >
       {text}
     </button>
+
   );
+
 }
 
 export default Button;
