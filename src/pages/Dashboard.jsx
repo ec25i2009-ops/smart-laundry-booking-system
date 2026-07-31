@@ -1,14 +1,31 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
-import { logOut } from "../authService";
-import { resetPassword } from "../authService";
+import {
+  logOut,
+  resetPassword,
+  getCurrentUserData,
+} from "../authService";
 
 function Dashboard() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+  async function loadUser() {
+    try {
+      const data = await getCurrentUserData();
+      setUserData(data);
+    } catch (err) {
+      console.error("Error loading user data:", err);
+    }
+  }
+
+  loadUser();
+}, []);
 
   async function handleLogout() {
     try {
@@ -49,9 +66,25 @@ function Dashboard() {
       >
         <h1>🧺 Smart Laundry Dashboard</h1>
 
-        <h2>Welcome!</h2>
+        <h2>User Information</h2>
 
-        <p>Here is an overview of your laundry bookings.</p>
+<div
+  style={{
+    display: "inline-block",
+    textAlign: "left",
+    padding: "20px",
+    border: "1px solid #ddd",
+    borderRadius: "10px",
+    marginBottom: "30px",
+    width: "350px",
+  }}
+>
+  <p><strong>Name:</strong> {userData?.name || "Loading..."}</p>
+  <p><strong>Email:</strong> {userData?.email || "Loading..."}</p>
+  <p><strong>Hostel:</strong> {userData?.hostel || "Loading..."}</p>
+</div>
+
+<p>Here is an overview of your laundry bookings.</p>
 
         <br />
 

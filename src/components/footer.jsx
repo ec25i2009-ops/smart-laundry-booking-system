@@ -10,7 +10,7 @@ function Footer() {
       }}
     >
       <p>📍 Hostel Laundry Room</p>
-      <p>⏰ Laundry Timings: 6:00 AM – 10:00 PM</p>
+      <p>🕒 Booking Available 24/7 (Except Daily from 11:00 AM – 4:00 PM)</p>
       <p>© 2026 Smart Laundry Booking System</p>
     </footer>
   );
