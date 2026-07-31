@@ -100,7 +100,7 @@ function Login() {
 
         <input
           type="email"
-          placeholder="yourname@iiitdm.ac.in"
+          placeholder="your_roll_no@iiitdm.ac.in"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           style={{
