@@ -15,7 +15,7 @@ function Navbar() {
       <h2>🧺 Smart Laundry</h2>
 
       <div>
-        16  <Link to="/home" style={{ color: "white", marginRight: "20px", textDecoration: "none" }}>
+         <Link to="/home" style={{ color: "white", marginRight: "20px", textDecoration: "none" }}>
           Home
         </Link>
         <Link to="/machines" style={{ color: "white", marginRight: "20px", textDecoration: "none" }}>
