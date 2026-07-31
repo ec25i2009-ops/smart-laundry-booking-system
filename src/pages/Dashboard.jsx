@@ -1,11 +1,14 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
 import { logOut } from "../authService";
+import { resetPassword } from "../authService";
 
 function Dashboard() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
 
   async function handleLogout() {
     try {
@@ -15,6 +18,24 @@ function Dashboard() {
       console.error("Logout failed:", err);
     }
   }
+
+  async function handleResetPassword() {
+  if (!email) {
+    alert("Please enter your email.");
+    return;
+  }
+
+  try {
+    await resetPassword(email);
+    alert("Password reset email sent! Check your inbox.");
+    setEmail("");
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+}
+
+
 
   return (
     <>
@@ -64,6 +85,34 @@ function Dashboard() {
           color="#10b981"
           onClick={() => navigate("/machines")}
         />
+
+        <br />
+
+<h3>Change Password?</h3>
+
+<input
+  type="email"
+  placeholder="Enter your registered email"
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  style={{
+    padding: "10px",
+    width: "300px",
+    borderRadius: "8px",
+    border: "1px solid #ccc",
+    marginBottom: "15px",
+  }}
+/>
+
+<br />
+
+<Button
+  text="Send Password Reset Email"
+  color="#f59e0b"
+  onClick={handleResetPassword}
+/>
+
+<br />
 
         <br />
 
