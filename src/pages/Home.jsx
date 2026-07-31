@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Button from "../components/Button";
 import Footer from "../components/Footer";
 import { logOut, getCurrentUserData } from "../authService";
+import { auth } from "../firebase";
 import { useState, useEffect } from "react";
 
 function Home() {
@@ -17,24 +18,43 @@ function Home() {
       console.error("Logout failed:", err);
     }
   }
-  useEffect(() => {
-  async function loadUser() {
-    try {
-      const data = await getCurrentUserData();
-      setUserData(data);
-    } catch (err) {
-      console.error("Error loading user data:", err);
-    }
-  }
 
-  loadUser();
-}, []);
+  useEffect(() => {
+    async function loadUser() {
+
+      console.log("========== HOME PAGE ==========");
+      console.log("auth.currentUser:", auth.currentUser);
+
+      try {
+
+        const data = await getCurrentUserData();
+
+        console.log("User data from Firestore:", data);
+
+        setUserData(data);
+
+      } catch (err) {
+
+        console.error("Error loading user data:", err);
+
+      }
+
+    }
+
+    loadUser();
+
+  }, []);
 
   return (
     <>
       <Navbar />
 
-      <div style={{ textAlign: "center", marginTop: "60px" }}>
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "60px",
+        }}
+      >
         <h1>🧺 Smart Laundry Booking System</h1>
 
         <h2>Welcome, {userData?.name || "User"}!</h2>
