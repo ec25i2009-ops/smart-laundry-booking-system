@@ -2,10 +2,12 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Button from "../components/Button";
 import Footer from "../components/Footer";
-import { logOut } from "../authService";
+import { logOut, getCurrentUserData } from "../authService";
+import { useState, useEffect } from "react";
 
 function Home() {
   const navigate = useNavigate();
+  const [userData, setUserData] = useState(null);
 
   async function handleLogout() {
     try {
@@ -15,6 +17,18 @@ function Home() {
       console.error("Logout failed:", err);
     }
   }
+  useEffect(() => {
+  async function loadUser() {
+    try {
+      const data = await getCurrentUserData();
+      setUserData(data);
+    } catch (err) {
+      console.error("Error loading user data:", err);
+    }
+  }
+
+  loadUser();
+}, []);
 
   return (
     <>
@@ -23,7 +37,7 @@ function Home() {
       <div style={{ textAlign: "center", marginTop: "60px" }}>
         <h1>🧺 Smart Laundry Booking System</h1>
 
-        <h2>Welcome!</h2>
+        <h2>Welcome, {userData?.name || "User"}!</h2>
 
         <p>
           Book your hostel washing machine quickly and avoid waiting in queues.
