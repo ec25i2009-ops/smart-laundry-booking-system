@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Button from "../components/Button";
 import Footer from "../components/Footer";
 import { logIn } from "../authService";
@@ -7,6 +8,7 @@ import { logIn } from "../authService";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
@@ -88,20 +90,41 @@ function Login() {
           Only IIITDM Kancheepuram institute email addresses are allowed.
         </p>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+        {/* Password Field with Eye Icon */}
+        <div
           style={{
+            position: "relative",
             width: "300px",
-            padding: "10px",
-            marginBottom: "20px",
-            borderRadius: "8px",
+            margin: "0 auto 20px",
           }}
-        />
+        >
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={{
+              width: "100%",
+              padding: "10px 40px 10px 10px",
+              borderRadius: "8px",
+              boxSizing: "border-box",
+            }}
+          />
 
-        <br />
+          <span
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: "absolute",
+              right: "12px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              cursor: "pointer",
+              color: "#666",
+            }}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
 
         {error && (
           <p

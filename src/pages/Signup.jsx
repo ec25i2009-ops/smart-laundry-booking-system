@@ -1,20 +1,23 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import {
+  FaEye,
+  FaEyeSlash,
+  FaUser,
+  FaEnvelope,
+  FaLock,
+  FaBuilding,
+} from "react-icons/fa";
+
 import Button from "../components/Button";
 import Footer from "../components/Footer";
 import { signUp } from "../authService";
-
-const inputStyle = {
-  width: "300px",
-  padding: "10px",
-  marginBottom: "15px",
-  borderRadius: "8px",
-};
 
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [hostel, setHostel] = useState("");
   const [error, setError] = useState("");
 
@@ -23,13 +26,11 @@ function Signup() {
   async function handleSignup() {
     setError("");
 
-    // Validate fields
     if (!name || !email || !password || !hostel) {
       setError("Please fill in all the fields.");
       return;
     }
 
-    // Restrict to IIITDM email addresses
     if (!email.endsWith("@iiitdm.ac.in")) {
       setError("Please use your IIITDM institute email.");
       return;
@@ -37,8 +38,6 @@ function Signup() {
 
     try {
       await signUp(email, password, name, hostel);
-
-      // Navigate to Home after successful signup
       navigate("/home");
     } catch (err) {
       switch (err.code) {
@@ -47,7 +46,7 @@ function Signup() {
           break;
 
         case "auth/weak-password":
-          setError("Password should be at least 6 characters long.");
+          setError("Password should contain at least 6 characters.");
           break;
 
         case "auth/invalid-email":
@@ -60,66 +59,131 @@ function Signup() {
     }
   }
 
+  const inputContainer = {
+    position: "relative",
+    width: "320px",
+    margin: "0 auto 18px",
+  };
+
+  const inputStyle = {
+    width: "100%",
+    padding: "12px 45px",
+    borderRadius: "10px",
+    border: "1px solid #d1d5db",
+    fontSize: "15px",
+    boxSizing: "border-box",
+    outline: "none",
+  };
+
+  const leftIcon = {
+    position: "absolute",
+    left: "15px",
+    top: "50%",
+    transform: "translateY(-50%)",
+    color: "#6b7280",
+  };
+
+  const rightIcon = {
+    position: "absolute",
+    right: "15px",
+    top: "50%",
+    transform: "translateY(-50%)",
+    cursor: "pointer",
+    color: "#6b7280",
+  };
+
   return (
     <>
-      <div style={{ textAlign: "center", marginTop: "80px" }}>
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "60px",
+        }}
+      >
         <h1>🧺 Smart Laundry Booking System</h1>
 
-        <p>Create an account</p>
-
-        <br />
-
-        <input
-          type="text"
-          placeholder="Full Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          style={inputStyle}
-        />
-
-        <br />
-
-        <input
-          type="email"
-          placeholder="College Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={inputStyle}
-        />
-
-        <br />
-
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={inputStyle}
-        />
-
-        <br />
-
-        <select
-          value={hostel}
-          onChange={(e) => setHostel(e.target.value)}
-          style={inputStyle}
+        <p
+          style={{
+            color: "#666",
+            marginBottom: "30px",
+          }}
         >
-          <option value="" disabled>
-            Select hostel
-          </option>
-          <option value="Jasmine">Jasmine</option>
-          <option value="Ashoka">Ashoka</option>
-          <option value="Jasmine Annex">Jasmine Annex</option>
-          <option value="Ashwatha">Ashwatha</option>
-        </select>
+          Create your IIITDM Laundry Account
+        </p>
 
-        <br />
+        {/* Name */}
+
+        <div style={inputContainer}>
+          <FaUser style={leftIcon} />
+
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            style={inputStyle}
+          />
+        </div>
+
+        {/* Email */}
+
+        <div style={inputContainer}>
+          <FaEnvelope style={leftIcon} />
+
+          <input
+            type="email"
+            placeholder="College Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            style={inputStyle}
+          />
+        </div>
+
+        {/* Password */}
+
+        <div style={inputContainer}>
+          <FaLock style={leftIcon} />
+
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={inputStyle}
+          />
+
+          <span
+            style={rightIcon}
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
+
+        {/* Hostel */}
+
+        <div style={inputContainer}>
+          <FaBuilding style={leftIcon} />
+
+          <select
+            value={hostel}
+            onChange={(e) => setHostel(e.target.value)}
+            style={inputStyle}
+          >
+            <option value="">Select Hostel</option>
+            <option value="Jasmine">Jasmine</option>
+            <option value="Ashoka">Ashoka</option>
+            <option value="Jasmine Annex">Jasmine Annex</option>
+            <option value="Ashwatha">Ashwatha</option>
+          </select>
+        </div>
 
         {error && (
           <p
             style={{
-              color: "red",
-              marginBottom: "15px",
+              color: "#dc2626",
+              fontWeight: "500",
+              marginBottom: "18px",
             }}
           >
             {error}
@@ -127,7 +191,7 @@ function Signup() {
         )}
 
         <Button
-          text="Sign Up"
+          text="Create Account"
           color="#2563eb"
           onClick={handleSignup}
         />
@@ -135,9 +199,18 @@ function Signup() {
         <br />
         <br />
 
-        <p>
+        <p style={{ color: "#555" }}>
           Already have an account?{" "}
-          <Link to="/">Login</Link>
+          <Link
+            to="/"
+            style={{
+              color: "#2563eb",
+              textDecoration: "none",
+              fontWeight: "600",
+            }}
+          >
+            Login
+          </Link>
         </p>
       </div>
 
