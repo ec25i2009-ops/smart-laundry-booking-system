@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Button from "../components/Button";
 import Footer from "../components/Footer";
-import { logIn } from "../authService";
+import { logIn, resetPassword } from "../authService";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -49,7 +49,38 @@ function Login() {
           setError("Login failed. Please try again.");
       }
     }
+
+    
   }
+  async function handleForgotPassword() {
+  if (!email) {
+    setError("Please enter your email first.");
+    return;
+  }
+
+  if (!email.endsWith("@iiitdm.ac.in")) {
+    setError("Please use your IIITDM institute email.");
+    return;
+  }
+
+  try {
+    await resetPassword(email);
+    alert("Password reset email sent! Please check your inbox.");
+  } catch (err) {
+    switch (err.code) {
+      case "auth/user-not-found":
+        setError("No account found with this email.");
+        break;
+
+      case "auth/invalid-email":
+        setError("Invalid email format.");
+        break;
+
+      default:
+        setError("Unable to send password reset email.");
+    }
+  }
+}
 
   return (
     <>
@@ -125,6 +156,22 @@ function Login() {
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </span>
         </div>
+        <p
+  onClick={handleForgotPassword}
+  style={{
+    color: "#2563eb",
+    cursor: "pointer",
+    fontSize: "14px",
+    marginTop: "-10px",
+    marginBottom: "15px",
+    textAlign: "right",
+    width: "300px",
+    marginLeft: "auto",
+    marginRight: "auto",
+  }}
+>
+  Forgot Password?
+</p>
 
         {error && (
           <p
