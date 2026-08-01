@@ -5,6 +5,15 @@ import {
   FaClipboardList,
 } from "react-icons/fa";
 
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+
+import { db, auth } from "../firebase";
+
 import { LuWashingMachine } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -24,11 +33,26 @@ function Dashboard() {
   const [email, setEmail] = useState("");
   const [userData, setUserData] = useState(null);
 
+  const [booking, setBooking] = useState(null);
+
   useEffect(() => {
     async function loadUser() {
       try {
         const data = await getCurrentUserData();
         setUserData(data);
+
+        const bookingQuery = query(
+          collection(db, "bookings"),
+          where("userId", "==", auth.currentUser.uid),
+          where("status", "==", "booked")
+        );
+
+        const bookingSnapshot = await getDocs(bookingQuery);
+
+        if (!bookingSnapshot.empty) {
+          setBooking(bookingSnapshot.docs[0].data());
+        }
+
       } catch (err) {
         console.error("Error loading user data:", err);
       }
@@ -113,7 +137,11 @@ function Dashboard() {
     <FaCalendarCheck />
 </div>
               <h3>My Booking</h3>
-              <h2>None</h2>
+              <h2>
+                {booking
+                  ? `Machine ${booking.machineNo}`
+                : "None"}
+              </h2>
             </div>
 
             <div className="stat-card">
@@ -150,6 +178,44 @@ function Dashboard() {
               </div>
 
             </div>
+
+          </div>
+
+          <div className="user-card">
+
+            <h2>Current Booking</h2>
+
+            {booking ? (
+
+              <div className="user-details">
+
+                <div className="info-box">
+                <h4>Machine</h4>
+                <p>Machine {booking.machineNo}</p>
+              </div>
+
+              <div className="info-box">
+                <h4>Date</h4>
+                <p>{booking.slotDate}</p>
+              </div>
+
+              <div className="info-box">
+                <h4>Time</h4>
+                <p>{booking.slotStart}:00 - {(booking.slotStart + 1) % 24}:00</p>
+              </div>
+
+              <div className="info-box">
+                <h4>Status</h4>
+                <p>{booking.status}</p>
+                </div>
+
+              </div>
+
+            ) : (
+
+              <p>No active booking.</p>
+
+            )}
 
           </div>
 

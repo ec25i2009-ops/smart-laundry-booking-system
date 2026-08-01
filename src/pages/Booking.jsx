@@ -36,6 +36,7 @@ function Booking() {
   const [message, setMessage] = useState("");
 
   const [bookedSlots, setBookedSlots] = useState([]);
+  const [hasActiveBooking, setHasActiveBooking] = useState(false);
   const [userData, setUserData] = useState(null);
 
   const navigate = useNavigate();
@@ -72,6 +73,16 @@ function Booking() {
 
       if (docSnap.exists()) {
         setUserData(docSnap.data());
+
+        const q = query(
+          collection(db, "bookings"),
+          where("userId", "==", auth.currentUser.uid),
+          where("status", "==", "booked")
+        );
+
+        const snapshot = await getDocs(q);
+
+        setHasActiveBooking(!snapshot.empty);
       }
     }
 
@@ -230,6 +241,29 @@ function Booking() {
           marginTop: "60px",
         }}
       >
+        {hasActiveBooking ? (
+
+          <>
+            <h1>🧺 Book a Washing Machine</h1>
+
+            <p
+              style={{
+                color: "red",
+                fontWeight: "bold",
+                marginTop: "30px",
+              }}
+            >
+              You already have an active booking.
+            </p>
+
+            <p>
+              Please cancel or complete your current booking before booking another slot.
+            </p>
+          </>
+
+        ) : (
+          
+        <div>
         <h1>🧺 Book a Washing Machine</h1>
 
         <p>Select a machine, date and time slot.</p>
@@ -259,6 +293,10 @@ function Booking() {
         <input
           type="date"
           value={date}
+          min={new Date().toISOString().split("T")[0]}
+          max={new Date(Date.now() + 10 * 24 * 60 * 60 * 1000)
+                .toISOString()
+                .split("T")[0]}
           onChange={(e) => setDate(e.target.value)}
           style={inputStyle}
         />
@@ -309,6 +347,11 @@ function Booking() {
           color="#2563eb"
           onClick={handleBook}
         />
+
+        </div>
+
+      )}
+
       </div>
 
       <Footer />
