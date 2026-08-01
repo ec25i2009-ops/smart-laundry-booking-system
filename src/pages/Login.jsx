@@ -30,15 +30,19 @@ function Login() {
         case "auth/user-not-found":
           setError("No account found. Please register first.");
           break;
+
         case "auth/wrong-password":
           setError("Incorrect password.");
           break;
+
         case "auth/invalid-credential":
           setError("Invalid email or password.");
           break;
+
         case "auth/invalid-email":
           setError("Invalid email format.");
           break;
+
         default:
           setError("Login failed. Please try again.");
       }
@@ -47,7 +51,7 @@ function Login() {
 
   async function handleForgotPassword() {
     if (!email) {
-      setError("Please enter your email first.");
+      setError("Please enter your institute email first.");
       return;
     }
 
@@ -64,9 +68,11 @@ function Login() {
         case "auth/user-not-found":
           setError("No account found with this email.");
           break;
+
         case "auth/invalid-email":
           setError("Invalid email format.");
           break;
+
         default:
           setError("Unable to send password reset email.");
       }
@@ -77,8 +83,13 @@ function Login() {
     <>
       <div className="login-page">
         <div className="login-card">
-          <h1>Smart Laundry</h1>
-          <h2>Booking System</h2>
+
+          <h1>
+            Smart Laundry
+            <span className="title-second-line">
+              Booking System
+            </span>
+          </h1>
 
           <p className="subtitle">
             Reserve washing machines in advance and avoid unnecessary waiting.
@@ -93,7 +104,7 @@ function Login() {
           />
 
           <p className="email-note">
-            Only IIITDM Kancheepuram institute email addresses are allowed.
+            Use your IIITDM Kancheepuram institute email.
           </p>
 
           <div className="password-container">
@@ -120,22 +131,32 @@ function Login() {
             Forgot Password?
           </p>
 
-          {error && <p className="error-message">{error}</p>}
+          {error && (
+            <p className="error-message">
+              {error}
+            </p>
+          )}
 
           <Button
             text="Sign In"
-            color="#2779B6"
+            color="#F9564F"
             onClick={handleLogin}
           />
 
           <p className="register-text">
-            Don't have an account? <Link to="/signup">Register</Link>
+            Don't have an account?{" "}
+            <Link to="/">
+            </Link>
+            <Link to="/signup">
+              Register
+            </Link>
           </p>
 
           <p className="access-text">
-            Access is restricted to IIITDM Kancheepuram students, faculty and
-            staff.
+            Access is restricted to IIITDM Kancheepuram students,
+            faculty and staff.
           </p>
+
         </div>
       </div>
 

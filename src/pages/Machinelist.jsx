@@ -13,7 +13,7 @@ import { auth, db } from "../firebase";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import MachineCard from "../components/MachineCard";
+import MachineCard from "../components/Machinecard";
 
 import "../styles/MachineList.css";
 
@@ -81,7 +81,7 @@ function MachineList() {
       <Navbar />
 
       <div className="machine-list-container">
-        <h1>🧺 Available Washing Machines</h1>
+        <h1> Available Washing Machines</h1>
 
         <h2>
           Hostel: {loading ? "Loading..." : hostel || "Not Found"}

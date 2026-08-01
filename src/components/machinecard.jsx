@@ -1,72 +1,54 @@
+import "../styles/MachineCard.css";
+
 function MachineCard({
   machineName,
   floor,
   status,
-  nextSlot
+  nextSlot,
 }) {
-
 
   return (
 
     <div className="machine-card">
 
+      <div className="machine-header">
 
-      <h3>
-        {machineName}
-      </h3>
+        <h3>{machineName}</h3>
 
+        <span
+          className={`status-badge ${
+            status === "Available"
+              ? "available"
+              : "unavailable"
+          }`}
+        >
+          {status}
+        </span>
 
-      {
-        floor &&
+      </div>
 
+      {floor && (
         <p>
-          <strong>
-            Floor:
-          </strong>{" "}
-          {floor}
+          <strong>Floor:</strong> {floor}
         </p>
-      }
-
-
+      )}
 
       <p>
-        <strong>
-          Status:
-        </strong>{" "}
-        {status}
+        <strong>Next Slot:</strong> {nextSlot}
       </p>
-
-
-
-      <p>
-        <strong>
-          Next Slot:
-        </strong>{" "}
-        {nextSlot}
-      </p>
-
-
 
       <button
-        disabled={
-          status !== "Available"
-        }
+        disabled={status !== "Available"}
       >
-
-        {
-          status === "Available"
+        {status === "Available"
           ? "Book Now"
-          : "Unavailable"
-        }
-
+          : "Unavailable"}
       </button>
-
 
     </div>
 
   );
 
 }
-
 
 export default MachineCard;
