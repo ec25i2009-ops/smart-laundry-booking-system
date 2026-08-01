@@ -161,6 +161,19 @@ function Booking() {
 
       if (!confirmBooking) return;
 
+      const userBookingQuery = query(
+        collection(db, "bookings"),
+        where("userId", "==", auth.currentUser.uid),
+        where("status", "==", "booked")
+      );
+
+      const userBookingSnapshot = await getDocs(userBookingQuery);
+
+      if (!userBookingSnapshot.empty) {
+        setMessage("❌ You already have an active booking.");
+          return;
+      }
+
       const bookingQuery = query(
         collection(db, "bookings"),
         where("machineId", "==", selectedMachine.id),
