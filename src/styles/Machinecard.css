@@ -1,0 +1,178 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+.machine-card{
+
+    background:#FCFDFF;
+
+    border-radius:22px;
+
+    padding:28px;
+
+    font-family:"Poppins",sans-serif;
+
+    box-shadow:
+        0 18px 40px rgba(0,0,0,.12),
+        0 6px 14px rgba(0,0,0,.06);
+
+    transition:.35s ease;
+
+    border-top:6px solid #F3C677;
+
+}
+
+.machine-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+        0 24px 50px rgba(0,0,0,.18),
+        0 10px 18px rgba(0,0,0,.08);
+
+}
+
+.machine-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+.machine-card h3{
+
+    color:#16204D;
+
+    font-size:28px;
+
+    font-weight:700;
+
+}
+
+.machine-card p{
+
+    margin:14px 0;
+
+    color:#4F4F4F;
+
+    font-size:17px;
+
+    line-height:1.6;
+
+}
+
+.machine-card strong{
+
+    color:#24346E;
+
+}
+
+.status-badge{
+
+    padding:8px 18px;
+
+    border-radius:25px;
+
+    color:white;
+
+    font-size:14px;
+
+    font-weight:600;
+
+}
+
+.available{
+
+    background:#49C67A;
+
+}
+
+.unavailable{
+
+    background:#F45A52;
+
+}
+
+.machine-card button{
+
+    display:block;
+
+    width:170px;
+
+    margin:28px auto 0;
+
+    padding:15px 0;
+
+    border:none;
+
+    border-radius:14px;
+
+    font-family:"Poppins",sans-serif;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    background:linear-gradient(
+        135deg,
+        #4D63F3,
+        #685BEA
+    );
+
+}
+
+.machine-card button:hover:not(:disabled){
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 12px 24px rgba(77,99,243,.35);
+
+}
+
+.machine-card button:disabled{
+
+    background:#D7DAE8;
+
+    color:#777;
+
+    cursor:not-allowed;
+
+    box-shadow:none;
+
+}
+
+@media(max-width:700px){
+
+.machine-header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:12px;
+
+}
+
+.machine-card h3{
+
+font-size:24px;
+
+}
+
+.machine-card button{
+
+width:100%;
+
+}
+
+}

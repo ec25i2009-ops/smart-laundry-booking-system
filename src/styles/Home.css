@@ -48,7 +48,7 @@ body{
 
 .hero-card{
 
-    background:rgba(255,255,255,.14);
+    background:rgba(255,255,255,.15);
 
     backdrop-filter:blur(20px);
 
@@ -70,7 +70,9 @@ body{
 
     margin-bottom:50px;
 
-    box-shadow:0 20px 45px rgba(0,0,0,.25);
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.18),
+        0 8px 18px rgba(0,0,0,.08);
 
 }
 
@@ -161,30 +163,34 @@ body{
 }
 
 /* ===========================
-   CARD
+   CARDS
 =========================== */
 
 .dashboard-card{
 
     background:white;
 
-    border-radius:24px;
+    border-radius:26px;
 
-    padding:35px;
+    padding:38px;
 
     text-align:center;
 
-    transition:.35s;
+    transition:all .35s ease;
 
-    box-shadow:0 15px 35px rgba(0,0,0,.18);
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.15),
+        0 8px 18px rgba(0,0,0,.08);
 
 }
 
 .dashboard-card:hover{
 
-    transform:translateY(-8px);
+    transform:translateY(-10px);
 
-    box-shadow:0 25px 45px rgba(0,0,0,.25);
+    box-shadow:
+        0 28px 55px rgba(0,0,0,.22),
+        0 10px 22px rgba(0,0,0,.10);
 
 }
 
@@ -199,6 +205,13 @@ body{
 .bookings{
 
     border-top:8px solid #F9564F;
+
+    background:linear-gradient(
+        135deg,
+        #FFFDF9 0%,
+        #FFF8F0 55%,
+        #FFF4E8 100%
+    );
 
 }
 
@@ -240,51 +253,27 @@ body{
 
     line-height:1.8;
 
-    margin-bottom:28px;
+    margin-bottom:34px;
 
 }
 
 /* ===========================
-   BUTTONS
+   BUTTON COLORS
 =========================== */
-
-.dashboard-card button{
-
-    width:100%;
-
-    padding:15px;
-
-    border-radius:14px;
-
-    font-size:16px;
-
-    font-weight:600;
-
-    transition:.35s;
-
-}
-
-.dashboard-card button:hover{
-
-    transform:translateY(-3px);
-
-}
-
-/* Machines Button */
 
 .machines button{
 
     background:#F3C677 !important;
 
-    color:#0A0A3E !important;
+    color:white !important;
 
 }
-
-/* Bookings Button */
 
 .bookings button{
 
     background:#F9564F !important;
+
+    color:white !important;
 
 }
 
@@ -294,15 +283,29 @@ body{
 
 .logout-section{
 
-    margin-top:45px;
+    margin-top:55px;
 
-    text-align:center;
+    display:flex;
+
+    justify-content:center;
 
 }
 
 .logout-section button{
 
-    width:220px;
+    width:260px;
+
+    height:58px;
+
+    border-radius:18px;
+
+    background:linear-gradient(
+        135deg,
+        #8B5CF6,
+        #A855F7
+    ) !important;
+
+    color:white !important;
 
 }
 
@@ -371,6 +374,14 @@ font-size:34px;
 .dashboard-card h3{
 
 font-size:28px;
+
+}
+
+.logout-section button{
+
+width:100%;
+
+max-width:280px;
 
 }
 
