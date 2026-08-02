@@ -57,15 +57,91 @@ function MachineList() {
         let machineArray = [];
 
         querySnapshot.forEach((doc) => {
-          machineArray.push(doc.data());
-        });
+  machineArray.push({
+    id: doc.id,
+    ...doc.data(),
+  });
+});
 
         // Sort by machine number
         machineArray.sort(
           (a, b) => a.machineNo - b.machineNo
         );
 
-        setMachines(machineArray);
+        // Get all bookings
+const bookingSnapshot = await getDocs(collection(db, "bookings"));
+
+const bookings = bookingSnapshot.docs.map((doc) => doc.data());
+
+const now = new Date();
+const today = now.toISOString().split("T")[0];
+const currentHour = now.getHours();
+
+const updatedMachines = machineArray.map((machine) => {
+
+  const machineBookings = bookings.filter(
+    (booking) =>
+      booking.machineId === machine.id &&
+      booking.status === "booked"
+  );
+
+  let status = "Available";
+  let nextSlot = "No upcoming bookings";
+
+  // Check if machine is currently booked
+  const currentBooking = machineBookings.find(
+    (booking) =>
+      booking.slotDate === today &&
+      currentHour >= booking.slotStart &&
+      currentHour < booking.slotStart + 1
+  );
+
+  if (currentBooking) {
+    status = "Running";
+  }
+
+  // Find next booking
+  const futureBookings = machineBookings
+    .filter((booking) => {
+      if (booking.slotDate > today) return true;
+
+      return (
+        booking.slotDate === today &&
+        booking.slotStart >= currentHour
+      );
+    })
+    .sort((a, b) => {
+      if (a.slotDate === b.slotDate) {
+        return a.slotStart - b.slotStart;
+      }
+
+      return a.slotDate.localeCompare(b.slotDate);
+    });
+
+  if (futureBookings.length > 0) {
+    const booking = futureBookings[0];
+
+    const end = (booking.slotStart + 1) % 24;
+
+    const formatHour = (h) => {
+      const suffix = h >= 12 ? "PM" : "AM";
+      const hour12 = h % 12 === 0 ? 12 : h % 12;
+      return `${hour12}:00 ${suffix}`;
+    };
+
+    nextSlot = `${booking.slotDate} | ${formatHour(
+      booking.slotStart
+    )} - ${formatHour(end)}`;
+  }
+
+  return {
+    ...machine,
+    status,
+    nextSlot,
+  };
+});
+
+setMachines(updatedMachines);
       } catch (error) {
         console.error("Error:", error);
       }

@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import MachineList from "./pages/Machinelist";
 import Booking from "./pages/Booking";
 import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   return (
@@ -14,13 +15,41 @@ function App() {
 
       <Route path="/signup" element={<Signup />} />
 
-      <Route path="/home" element={<Home />} />
+      <Route
+        path="/home"
+        element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        }
+      />
 
-      <Route path="/machines" element={<MachineList />} />
+      <Route
+        path="/machines"
+        element={
+          <ProtectedRoute>
+            <MachineList />
+          </ProtectedRoute>
+        }
+      />
 
-      <Route path="/booking" element={<Booking />} />
+      <Route
+        path="/booking"
+        element={
+          <ProtectedRoute>
+            <Booking />
+          </ProtectedRoute>
+        }
+      />
 
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }

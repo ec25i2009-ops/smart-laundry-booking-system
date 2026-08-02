@@ -1,12 +1,12 @@
 import "../styles/MachineCard.css";
-
+import { useNavigate } from "react-router-dom";
 function MachineCard({
   machineName,
   floor,
   status,
   nextSlot,
 }) {
-
+  const navigate = useNavigate();
   return (
 
     <div className="machine-card">
@@ -38,8 +38,9 @@ function MachineCard({
       </p>
 
       <button
-        disabled={status !== "Available"}
-      >
+  disabled={status !== "Available"}
+  onClick={() => navigate("/booking")}
+>
         {status === "Available"
           ? "Book Now"
           : "Unavailable"}

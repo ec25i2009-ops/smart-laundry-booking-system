@@ -35,6 +35,9 @@ function Dashboard() {
 
   const [booking, setBooking] = useState(null);
 
+  const [totalMachines, setTotalMachines] = useState(0);
+  const [availableMachines, setAvailableMachines] = useState(0);
+
   useEffect(() => {
     async function loadUser() {
       try {
@@ -52,6 +55,21 @@ function Dashboard() {
         if (!bookingSnapshot.empty) {
           setBooking(bookingSnapshot.docs[0].data());
         }
+
+        const machinesQuery = query(
+          collection(db, "machines"),
+          where("hostel", "==", data.hostel)
+        );
+
+        const machineSnapshot = await getDocs(machinesQuery);
+
+        setTotalMachines(machineSnapshot.size);
+
+        const availableCount = machineSnapshot.docs.filter(
+          (doc) => doc.data().status === "Available"
+        ).length;
+
+        setAvailableMachines(availableCount);
 
       } catch (err) {
         console.error("Error loading user data:", err);
@@ -102,7 +120,7 @@ function Dashboard() {
               <h1>Smart Laundry Dashboard</h1>
 
               <p>
-                Welcome back, <strong>{userData?.name || "Student"}</strong> 👋
+                Hi, <strong>{userData?.name || "Student"}</strong>!
               </p>
 
               <span>
@@ -121,7 +139,7 @@ function Dashboard() {
     <LuWashingMachine />
 </div>
               <h3>Total Machines</h3>
-              <h2>12</h2>
+              <h2>{totalMachines}</h2>
             </div>
 
             <div className="stat-card">
@@ -129,7 +147,7 @@ function Dashboard() {
     <FaWarehouse />
 </div>
               <h3>Available</h3>
-              <h2>8</h2>
+              <h2>{availableMachines}</h2>
             </div>
 
             <div className="stat-card">
@@ -137,11 +155,16 @@ function Dashboard() {
     <FaCalendarCheck />
 </div>
               <h3>My Booking</h3>
-              <h2>
-                {booking
-                  ? `Machine ${booking.machineNo}`
-                : "None"}
-              </h2>
+              {booking ? (
+                <>
+                  <h2>Machine {booking.machineNo}</h2>
+                  <p className="stat-subtext">
+                    {booking.slotDate} • {booking.slotStart}:00 - {(booking.slotStart + 1) % 24}:00
+                  </p>
+                </>
+              ) : (
+                <h2>None</h2>
+              )}
             </div>
 
             <div className="stat-card">
@@ -272,7 +295,7 @@ function Dashboard() {
             />
 
             <Button
-              text="Send Password Reset Email"
+              text="Send Reset Email"
               color="#F9564F"
               onClick={handleResetPassword}
             />
@@ -302,3 +325,4 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
