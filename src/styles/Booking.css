@@ -1,64 +1,242 @@
-.booking-container {
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 35px;
-    background: linear-gradient(135deg, #f8fbff, #eef5ff);
-    border-radius: 18px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-.booking-container h1 {
-    text-align: center;
-    color: #1e3a8a;
-    margin-bottom: 30px;
-    font-size: 34px;
+body{
+    font-family:"Poppins",sans-serif;
 }
 
-.booking-container label {
-    display: block;
-    margin-top: 15px;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #374151;
+/* ===========================
+   PAGE
+=========================== */
+
+.booking-page{
+
+    min-height:100vh;
+
+    padding:50px 20px 80px;
+
+    background:
+
+    radial-gradient(circle at 0% 0%,rgba(123,30,122,.22),transparent 35%),
+
+    radial-gradient(circle at 100% 15%,rgba(249,86,79,.18),transparent 32%),
+
+    radial-gradient(circle at 20% 100%,rgba(243,198,119,.30),transparent 35%),
+
+    linear-gradient(
+        135deg,
+        #FFF7EC,
+        #FBE5EC,
+        #F5DFF3,
+        #FDE9D4,
+        #FFF8E7
+    );
+
 }
 
-.booking-container input,
-.booking-container select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    font-size: 16px;
-    margin-bottom: 15px;
-    box-sizing: border-box;
+/* ===========================
+   CARD
+=========================== */
+
+.booking-card{
+
+    width:100%;
+    max-width:600px;
+
+    margin:auto;
+
+    background:
+
+    linear-gradient(
+        145deg,
+        rgba(255,255,255,.95),
+        rgba(255,248,240,.90)
+    );
+
+    border-radius:30px;
+
+    padding:45px;
+
+    box-shadow:
+    0 18px 40px rgba(123,30,122,.15);
+
+    animation:fadeUp .6s ease;
+
 }
 
-.booking-container input:focus,
-.booking-container select:focus {
-    outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 5px rgba(37, 99, 235, 0.3);
+/* ===========================
+   TITLE
+=========================== */
+
+.booking-card h1{
+
+    color:#7B1E7A;
+
+    text-align:center;
+
+    font-size:34px;
+
+    margin-bottom:12px;
+
 }
 
-.booking-container button {
-    width: 100%;
-    padding: 14px;
-    margin-top: 15px;
-    background: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+.booking-card p{
+
+    color:#666;
+
+    text-align:center;
+
+    margin-bottom:30px;
+
 }
 
-.booking-container button:hover {
-    background: #1d4ed8;
-    transform: scale(1.02);
+/* ===========================
+   INPUTS
+=========================== */
+
+.booking-input{
+
+    width:100%;
+
+    padding:16px;
+
+    margin-bottom:20px;
+
+    border-radius:14px;
+
+    border:2px solid #F3C677;
+
+    font-size:15px;
+
+    transition:.3s;
+
+    background:white;
+
 }
 
-.booking-container button:active {
-    transform: scale(0.98);
+.booking-input:focus{
+
+    outline:none;
+
+    border-color:#F9564F;
+
+    box-shadow:0 0 18px rgba(249,86,79,.18);
+
+}
+
+/* ===========================
+   BUTTON
+=========================== */
+
+.booking-btn{
+
+    margin-top:10px;
+
+    width:100%;
+}
+
+/* ===========================
+   MESSAGE
+=========================== */
+
+.booking-message{
+
+    margin-top:18px;
+
+    margin-bottom:15px;
+
+    font-weight:600;
+
+    text-align:center;
+
+}
+
+/* ===========================
+   ACTIVE BOOKING CARD
+=========================== */
+
+.booking-warning{
+
+    max-width:600px;
+
+    margin:auto;
+
+    background:white;
+
+    padding:45px;
+
+    border-radius:28px;
+
+    box-shadow:
+    0 15px 35px rgba(179,63,98,.15);
+
+    text-align:center;
+
+}
+
+.booking-warning h1{
+
+    color:#B33F62;
+
+    margin-bottom:25px;
+
+}
+
+.booking-warning p{
+
+    color:#555;
+
+    margin-bottom:15px;
+
+    font-size:17px;
+
+}
+
+/* ===========================
+   ANIMATION
+=========================== */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media(max-width:650px){
+
+.booking-card{
+
+    padding:28px;
+
+}
+
+.booking-card h1{
+
+    font-size:28px;
+
+}
+
 }

@@ -15,13 +15,7 @@ import { db, auth } from "../firebase";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
-
-const inputStyle = {
-  width: "300px",
-  padding: "10px",
-  marginBottom: "15px",
-  borderRadius: "8px",
-};
+import "../styles/Booking.css";
 
 const slots = [
   16, 17, 18, 19, 20, 21, 22, 23,
@@ -235,22 +229,17 @@ function Booking() {
     <>
       <Navbar />
 
-      <div
-        style={{
-          textAlign: "center",
-          marginTop: "60px",
-        }}
-      >
+      <div className="booking-page">
         {hasActiveBooking ? (
 
-          <>
+          <div className="booking-warning">
+
             <h1>🧺 Book a Washing Machine</h1>
 
             <p
               style={{
-                color: "red",
-                fontWeight: "bold",
-                marginTop: "30px",
+                color: "#B33F62",
+                fontWeight: "600",
               }}
             >
               You already have an active booking.
@@ -259,98 +248,98 @@ function Booking() {
             <p>
               Please cancel or complete your current booking before booking another slot.
             </p>
-          </>
+
+          </div>
 
         ) : (
-          
-        <div>
-        <h1>🧺 Book a Washing Machine</h1>
 
-        <p>Select a machine, date and time slot.</p>
+          <div className="booking-card">
 
-        <br />
+            <h1>🧺 Book a Washing Machine</h1>
 
-        <select
-          value={machineId}
-          onChange={(e) => setMachineId(e.target.value)}
-          style={inputStyle}
-        >
-          {machines.length === 0 && (
-            <option>No machines available</option>
-          )}
+            <p>Select a machine, date and time slot.</p>
 
-          {machines
-            .filter((m) => userData && m.hostel === userData.hostel)
-            .map((m) => (
-              <option key={m.id} value={m.id}>
-                Machine {m.machineNo}
-              </option>
-          ))}
-        </select>
 
-        <br />
+            <select
+              className="booking-input"
+              value={machineId}
+              onChange={(e) => setMachineId(e.target.value)}
+            >
+              {machines.length === 0 && (
+                <option>No machines available</option>
+              )}
 
-        <input
-          type="date"
-          value={date}
-          min={new Date().toISOString().split("T")[0]}
-          max={new Date(Date.now() + 10 * 24 * 60 * 60 * 1000)
-                .toISOString()
-                .split("T")[0]}
-          onChange={(e) => setDate(e.target.value)}
-          style={inputStyle}
-        />
+              {machines
+                .filter((m) => userData && m.hostel === userData.hostel)
+                .map((m) => (
+                  <option key={m.id} value={m.id}>
+                    Machine {m.machineNo}
+                  </option>
+                ))}
+            </select>
 
-        <br />
+            <input
+              className="booking-input"
+              type="date"
+              value={date}
+              min={new Date().toISOString().split("T")[0]}
+              max={
+                new Date(Date.now() + 10 * 24 * 60 * 60 * 1000)
+                  .toISOString()
+                  .split("T")[0]
+              }
+              onChange={(e) => setDate(e.target.value)}
+            />
 
-        <select
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
-          style={inputStyle}
-        >
-          <option value="">Select Time Slot</option>
+            <select
+              className="booking-input"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+            >
+              <option value="">Select Time Slot</option>
 
-          {slots
-            .filter((slot) => !bookedSlots.includes(slot))
-            .map((slot) => {
-            const end = (slot + 1) % 24;
+              {slots
+                .filter((slot) => !bookedSlots.includes(slot))
+                .map((slot) => {
+                  const end = (slot + 1) % 24;
 
-            const formatHour = (h) => {
-              const suffix = h >= 12 ? "PM" : "AM";
-              const hour12 = h % 12 === 0 ? 12 : h % 12;
-              return `${hour12}:00 ${suffix}`;
-            };
+                  const formatHour = (h) => {
+                    const suffix = h >= 12 ? "PM" : "AM";
+                    const hour12 = h % 12 === 0 ? 12 : h % 12;
+                    return `${hour12}:00 ${suffix}`;
+                  };
 
-            return (
-              <option key={slot} value={slot}>
-                {formatHour(slot)} - {formatHour(end)}
-              </option>
-            );
-          })}
-        </select>
+                  return (
+                    <option key={slot} value={slot}>
+                      {formatHour(slot)} - {formatHour(end)}
+                    </option>
+                  );
+                })}
+            </select>
 
-        <br />
+            {message && (
+              <p
+                className="booking-message"
+                  style={{
+                    color: message.includes("confirmed")
+                      ? "#4A7C59"
+                      : "#B33F62",
+                  }}
+              >
+                {message}
+              </p>
+            )}
 
-        {message && (
-          <p
-            style={{
-              color: message.includes("confirmed") ? "green" : "red",
-              marginBottom: "15px",
-            }}
-          >
-            {message}
-          </p>
+            <Button
+              className="booking-btn"
+              text="Book Now"
+              color="#2563eb"
+              onClick={handleBook}
+            />
+
+          </div>
+
         )}
-
-        <Button
-          text="Book Now"
-          color="#2563eb"
-          onClick={handleBook}
-        />
-
-        </div>
-
-      )}
 
       </div>
 
