@@ -10,6 +10,9 @@ import {
   query,
   where,
   getDocs,
+  getDoc,
+  updateDoc,
+  doc,
 } from "firebase/firestore";
 
 import { db, auth } from "../firebase";
@@ -53,7 +56,10 @@ function Dashboard() {
         const bookingSnapshot = await getDocs(bookingQuery);
 
         if (!bookingSnapshot.empty) {
-          setBooking(bookingSnapshot.docs[0].data());
+          setBooking({
+            id: bookingSnapshot.docs[0].id,
+            ...bookingSnapshot.docs[0].data()
+          });
         }
 
         const machinesQuery = query(
@@ -101,6 +107,30 @@ function Dashboard() {
     } catch (err) {
       console.error(err);
       alert(err.message);
+    }
+  }
+
+  async function handleCancelBooking() {
+    if (!booking) return;
+
+    const confirmCancel = window.confirm(
+      "Are you sure you want to cancel this booking?"
+    );
+
+    if (!confirmCancel) return;
+
+    try {
+      await updateDoc(doc(db, "bookings", booking.id), {
+        status: "cancelled",
+      });
+
+      setBooking(null);
+
+      alert("Booking cancelled successfully.");
+
+    } catch (err) {
+      console.error(err);
+      alert("Failed to cancel booking.");
     }
   }
 
@@ -231,6 +261,14 @@ function Dashboard() {
                 <h4>Status</h4>
                 <p>{booking.status}</p>
                 </div>
+
+              <div style={{ marginTop: "20px", textAlign: "center" }}>
+                <Button
+                  text="Cancel Booking"
+                  color="#B33F62"
+                  onClick={handleCancelBooking}
+                />
+              </div>
 
               </div>
 
