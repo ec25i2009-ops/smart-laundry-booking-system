@@ -69,14 +69,33 @@ function Dashboard() {
 
         const machineSnapshot = await getDocs(machinesQuery);
 
-        setTotalMachines(machineSnapshot.size);
+        const total = machineSnapshot.size;
 
-        const availableCount = machineSnapshot.docs.filter(
-          (doc) => doc.data().status === "Available"
-        ).length;
+setTotalMachines(total);
 
-        setAvailableMachines(availableCount);
+const hostelBookingQuery = query(
+  collection(db, "bookings"),
+  where("machineHostel", "==", data.hostel),
+  where("status", "==", "booked")
+);
 
+const hostelBookingSnapshot = await getDocs(hostelBookingQuery);
+
+const now = new Date();
+const today = now.toISOString().split("T")[0];
+const currentHour = now.getHours();
+
+const occupiedMachines = hostelBookingSnapshot.docs.filter((doc) => {
+  const booking = doc.data();
+
+  return (
+    booking.slotDate === today &&
+    currentHour >= booking.slotStart &&
+    currentHour < booking.slotStart + 1
+  );
+}).length;
+
+setAvailableMachines(total - occupiedMachines);
       } catch (err) {
         console.error("Error loading user data:", err);
       }
