@@ -272,7 +272,7 @@ function Booking() {
 
           <div className="booking-warning">
 
-            <h1>🧺 Book a Washing Machine</h1>
+            <h1>Book a Washing Machine</h1>
 
             <h3>You already have an active booking.</h3>
 
@@ -308,7 +308,7 @@ function Booking() {
 
           <div className="booking-card">
 
-            <h1>🧺 Book a Washing Machine</h1>
+            <h1>Book a Washing Machine</h1>
 
             <p>Select a machine, date and time slot.</p>
 
@@ -367,7 +367,7 @@ function Booking() {
                   // Hide slot if it started more than 10 minutes ago
                   if (
                     currentHour > slot ||
-                    (currentHour === slot && currentMinute >= 10)
+                    (currentHour === slot && currentMinute >= 40)
                   ) {
                     return false;
                   }
