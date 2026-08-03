@@ -352,7 +352,28 @@ function Booking() {
               <option value="">Select Time Slot</option>
 
               {slots
-                .filter((slot) => !bookedSlots.includes(slot))
+                .filter((slot) => {
+                  // Already booked
+                  if (bookedSlots.includes(slot)) return false;
+
+                  // If not today's date, show normally
+                  if (date !== new Date().toISOString().split("T")[0]) return true;
+
+                  // Current time
+                  const now = new Date();
+                  const currentHour = now.getHours();
+                  const currentMinute = now.getMinutes();
+
+                  // Hide slot if it started more than 10 minutes ago
+                  if (
+                    currentHour > slot ||
+                    (currentHour === slot && currentMinute >= 10)
+                  ) {
+                    return false;
+                  }
+
+                  return true;
+                })
                 .map((slot) => {
                   const end = (slot + 1) % 24;
 
