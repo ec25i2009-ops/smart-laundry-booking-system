@@ -107,7 +107,7 @@ const updatedMachines = machineArray.map((machine) => {
 
       return (
         booking.slotDate === today &&
-        booking.slotStart >= currentHour
+        booking.slotStart > currentHour
       );
     })
     .sort((a, b) => {
