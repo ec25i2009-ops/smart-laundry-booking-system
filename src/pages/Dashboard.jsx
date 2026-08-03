@@ -124,9 +124,8 @@ function Dashboard() {
         status: "cancelled",
       });
 
-      setBooking(null);
-
       alert("Booking cancelled successfully.");
+      window.location.reload();
 
     } catch (err) {
       console.error(err);

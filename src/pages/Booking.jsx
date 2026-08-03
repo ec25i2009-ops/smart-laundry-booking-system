@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import {
-collection,
-onSnapshot,
-addDoc,
-Timestamp,
-doc,
-getDoc,
-query,
-where,
-getDocs,
+  collection,
+  onSnapshot,
+  addDoc,
+  Timestamp,
+  doc,
+  getDoc,
+  query,
+  where,
+  getDocs,
+  updateDoc,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { db, auth } from "../firebase";
@@ -31,6 +32,7 @@ function Booking() {
 
   const [bookedSlots, setBookedSlots] = useState([]);
   const [hasActiveBooking, setHasActiveBooking] = useState(false);
+  const [booking, setBooking] = useState(null);
   const [userData, setUserData] = useState(null);
 
   const navigate = useNavigate();
@@ -76,7 +78,18 @@ function Booking() {
 
         const snapshot = await getDocs(q);
 
-        setHasActiveBooking(!snapshot.empty);
+        if (!snapshot.empty) {
+          setHasActiveBooking(true);
+
+          setBooking({
+            id: snapshot.docs[0].id,
+            ...snapshot.docs[0].data(),
+          });
+
+        } else {
+          setHasActiveBooking(false);
+          setBooking(null);
+        }
       }
     }
 
@@ -225,6 +238,31 @@ function Booking() {
     }
   }
 
+  async function handleCancelBooking() {
+    if (!booking) return;
+
+    const confirmCancel = window.confirm(
+      "Are you sure you want to cancel this booking?"
+    );
+
+    if (!confirmCancel) return;
+
+    try {
+      await updateDoc(doc(db, "bookings", booking.id), {
+        status: "cancelled",
+      });
+
+      setBooking(null);
+      setHasActiveBooking(false);
+
+      alert("Booking cancelled successfully.");
+
+    } catch (err) {
+      console.error(err);
+      alert("Failed to cancel booking.");
+    }
+  }
+
   return (
     <>
       <Navbar />
@@ -236,20 +274,35 @@ function Booking() {
 
             <h1>🧺 Book a Washing Machine</h1>
 
-            <p
-              style={{
-                color: "#B33F62",
-                fontWeight: "600",
-              }}
-            >
-              You already have an active booking.
+            <h3>You already have an active booking.</h3>
+
+            <div className="booking-details">
+
+              <p>
+                <strong>Machine:</strong> {booking?.machineNo}
+              </p>
+
+              <p>
+                <strong>Date:</strong> {booking?.slotDate}
+              </p>
+
+              <p>
+                <strong>Time:</strong> {booking?.slotStart}:00 - {(booking?.slotStart + 1) % 24}:00
+              </p>
+
+            </div>
+
+            <Button
+              text="Cancel Booking"
+              color="#B33F62"
+              onClick={handleCancelBooking}
+            />
+
+            <p style={{ marginTop: "20px" }}>
+              Cancel your current booking to reserve another slot.
             </p>
 
-            <p>
-              Please cancel or complete your current booking before booking another slot.
-            </p>
-
-          </div>
+      </div>
 
         ) : (
 
