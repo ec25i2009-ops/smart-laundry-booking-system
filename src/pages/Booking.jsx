@@ -79,17 +79,41 @@ function Booking() {
         const snapshot = await getDocs(q);
 
         if (!snapshot.empty) {
-          setHasActiveBooking(true);
+  const bookingDoc = snapshot.docs[0];
+  const bookingData = bookingDoc.data();
 
-          setBooking({
-            id: snapshot.docs[0].id,
-            ...snapshot.docs[0].data(),
-          });
+  const now = new Date();
 
-        } else {
-          setHasActiveBooking(false);
-          setBooking(null);
-        }
+  const bookingEnd = new Date(bookingData.slotDate);
+  bookingEnd.setHours((bookingData.slotStart + 1) % 24, 0, 0, 0);
+
+  // Handle midnight slots (23:00 -> 00:00)
+  if (bookingData.slotStart === 23) {
+    bookingEnd.setDate(bookingEnd.getDate() + 1);
+  }
+
+  if (now >= bookingEnd) {
+    // Booking expired
+    await updateDoc(doc(db, "bookings", bookingDoc.id), {
+      status: "completed",
+    });
+
+    setHasActiveBooking(false);
+    setBooking(null);
+
+  } else {
+    setHasActiveBooking(true);
+
+    setBooking({
+      id: bookingDoc.id,
+      ...bookingData,
+    });
+  }
+
+} else {
+  setHasActiveBooking(false);
+  setBooking(null);
+}
       }
     }
 
@@ -185,12 +209,31 @@ function Booking() {
         where("status", "==", "booked")
       );
 
-      const userBookingSnapshot = await getDocs(userBookingQuery);
+     const userBookingSnapshot = await getDocs(userBookingQuery);
 
-      if (!userBookingSnapshot.empty) {
-        setMessage("❌ You already have an active booking.");
-          return;
-      }
+if (!userBookingSnapshot.empty) {
+
+  const bookingDoc = userBookingSnapshot.docs[0];
+  const bookingData = bookingDoc.data();
+
+  const now = new Date();
+
+  const bookingEnd = new Date(bookingData.slotDate);
+  bookingEnd.setHours((bookingData.slotStart + 1) % 24, 0, 0, 0);
+
+  if (bookingData.slotStart === 23) {
+    bookingEnd.setDate(bookingEnd.getDate() + 1);
+  }
+
+  if (now >= bookingEnd) {
+    await updateDoc(doc(db, "bookings", bookingDoc.id), {
+      status: "completed",
+    });
+  } else {
+    setMessage("You already have an active booking.");
+    return;
+  }
+}
 
       const bookingQuery = query(
         collection(db, "bookings"),
