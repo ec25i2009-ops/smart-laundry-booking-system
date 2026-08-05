@@ -2,15 +2,21 @@
 
 A web-based application that enables hostel residents to check washing machine availability and reserve laundry slots online, reducing waiting time and improving machine utilization.
 
+---
+
 ## Problem Statement
 
 The current hostel laundry process lacks a centralized system to manage washing machine usage. Students are unable to check machine availability before visiting the laundry room, leading to unnecessary waiting, repeated visits, and inconvenience. This results in inefficient utilization of washing machines and a poor user experience.
+
+---
 
 ## Motivation
 
 Managing hostel laundry manually is time-consuming and inconvenient for students. The absence of a booking mechanism often results in uncertainty regarding machine availability and unnecessary trips to the laundry room.
 
 This project aims to simplify the laundry process by providing an organized, digital platform for checking machine availability and booking washing machines in advance.
+
+---
 
 ## Solution Overview
 
@@ -22,6 +28,8 @@ The Smart Laundry Booking System is a web-based application that allows hostel r
 - Improve machine utilization
 - Reduce waiting time and unnecessary visits
 
+---
+
 ## Features
 
 - Secure user authentication
@@ -30,6 +38,8 @@ The Smart Laundry Booking System is a web-based application that allows hostel r
 - Booking management
 - Automatic slot expiry
 - Responsive user interface
+
+---
 
 ## Technology Stack
 
@@ -49,14 +59,18 @@ The Smart Laundry Booking System is a web-based application that allows hostel r
 ### Backend & Database – Firebase
 
 #### Firebase Authentication
+
 - Provides secure user registration and login using institute email IDs.
 - Supports password reset through email verification.
 - Maintains authenticated user sessions across the application.
 
 #### Cloud Firestore
+
 - Stores user profiles, machine information, and booking records.
 - Provides real-time synchronization of booking data.
 - Prevents duplicate bookings through validation before confirmation.
+
+---
 
 ## System Architecture
 
@@ -95,23 +109,25 @@ The **Smart Laundry Booking System** follows a three-layer architecture consisti
       └─────────────────────┘
 ```
 
-# Setup Instructions
+---
+
+## Setup Instructions
 
 Follow the steps below to run the Smart Laundry Booking System locally.
 
-## 1. Clone the Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/ec25i2009-ops/smart-laundry-booking-system.git
 ```
 
-## 2. Navigate to the Project Directory
+### 2. Navigate to the Project Directory
 
 ```bash
 cd smart-laundry-booking-system
 ```
 
-## 3. Install Dependencies
+### 3. Install Dependencies
 
 Make sure you have **Node.js (v18 or later)** and **npm** installed.
 
@@ -119,7 +135,7 @@ Make sure you have **Node.js (v18 or later)** and **npm** installed.
 npm install
 ```
 
-## 4. Configure Firebase
+### 4. Configure Firebase
 
 1. Create a project in the **Firebase Console**.
 2. Enable **Authentication** (Email/Password).
@@ -142,7 +158,7 @@ const firebaseConfig = {
 };
 ```
 
-## 5. Create Firestore Collections
+### 5. Create Firestore Collections
 
 Create the following collections in Cloud Firestore:
 
@@ -152,7 +168,7 @@ Create the following collections in Cloud Firestore:
 
 Populate the `machines` collection with the required washing machine details before running the application.
 
-## 6. Start the Development Server
+### 6. Start the Development Server
 
 ```bash
 npm run dev
@@ -160,7 +176,7 @@ npm run dev
 
 The application will start locally.
 
-## 7. Build for Production
+### 7. Build for Production
 
 ```bash
 npm run build
@@ -188,3 +204,19 @@ The optimized production files will be generated inside the `dist/` folder.
 - Cloud Firestore
 - React Router
 - CSS
+
+---
+
+## Future Scope
+
+The Smart Laundry Booking System can be further enhanced with the following features:
+
+- **IoT-Based Machine Monitoring:** Integrate sensors to detect machine status (idle, running, completed) and automatically update availability in real time.
+- **QR Code-Based Machine Activation:** Allow users to scan a QR code on the washing machine to verify their booking and start the machine.
+- **Automatic Slot Release:** Automatically cancel bookings if the user does not start the machine within a predefined grace period, making the slot available to others.
+- **Email & Push Notifications:** Send booking confirmations, reminders, cancellation updates, and cycle completion notifications.
+- **Admin Dashboard:** Provide hostel administrators with tools to manage machines, monitor bookings, and generate usage reports.
+- **Waiting List System:** Enable users to join a queue for fully booked slots and automatically assign cancelled slots to the next user.
+- **Machine Maintenance Module:** Allow administrators to mark machines as under maintenance, preventing bookings during downtime.
+- **Mobile Application:** Develop Android and iOS applications for a more convenient and accessible user experience.
+- **Multi-Hostel & Multi-Campus Support:** Extend the platform to support multiple hostels and campuses within an institution.
