@@ -4,6 +4,16 @@ A web-based application that enables hostel residents to check washing machine a
 
 ---
 
+## Presentation
+https://drive.google.com/file/d/1UEBCORL1ruzrmaazHPJSMR1XC21D5pgQ/view?usp=sharing
+
+---
+
+## Demo Video
+https://drive.google.com/file/d/1y2ZpiwGXErZ8JWOPGqnzC26_5FPq8DX7/view?usp=sharing
+
+---
+
 ## Problem Statement
 
 The current hostel laundry process lacks a centralized system to manage washing machine usage. Students are unable to check machine availability before visiting the laundry room, leading to unnecessary waiting, repeated visits, and inconvenience. This results in inefficient utilization of washing machines and a poor user experience.
