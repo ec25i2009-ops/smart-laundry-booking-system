@@ -60,29 +60,38 @@ The Smart Laundry Booking System is a web-based application that allows hostel r
 
 ## System Architecture
 
-The Smart Laundry Booking System follows a three-layer architecture consisting of the frontend, authentication service, and cloud database.
+The **Smart Laundry Booking System** follows a three-layer architecture consisting of the frontend, authentication service, and cloud database.
 
 ### Architecture Flow
 
-User
-↓
-React Frontend
-- Login / Signup
-- Dashboard
-- Machine List
-- Booking Module
+```text
+                 User
+                   │
+                   ▼
+          React Frontend
+      ┌─────────────────────┐
+      │ • Login / Signup    │
+      │ • Dashboard         │
+      │ • Machine List      │
+      │ • Booking Module    │
+      └─────────────────────┘
+                   │
+                   ▼
+    Firebase Authentication
+      ┌─────────────────────┐
+      │ • User Registration │
+      │ • Secure Login      │
+      │ • Session Management│
+      │ • Password Reset    │
+      └─────────────────────┘
+                   │
+                   ▼
+       Cloud Firestore
+      ┌─────────────────────┐
+      │ • User Data         │
+      │ • Machine Data      │
+      │ • Booking Records   │
+      │ • Slot Availability │
+      └─────────────────────┘
+```
 
-↓
-
-Firebase Authentication
-- User Registration & Login
-- Session Management
-- Password Reset
-
-↓
-
-Cloud Firestore
-- User Data
-- Machine Information
-- Booking Records
-- Slot Availability
