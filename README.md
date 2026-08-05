@@ -1,16 +1,32 @@
-# React + Vite
+# Smart Laundry Booking System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web-based application that enables hostel residents to check washing machine availability and reserve laundry slots online, reducing waiting time and improving machine utilization.
 
-Currently, two official plugins are available:
+## Problem Statement
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The current hostel laundry process lacks a centralized system to manage washing machine usage. Students are unable to check machine availability before visiting the laundry room, leading to unnecessary waiting, repeated visits, and inconvenience. This results in inefficient utilization of washing machines and a poor user experience.
 
-## React Compiler
+## Motivation
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Managing hostel laundry manually is time-consuming and inconvenient for students. The absence of a booking mechanism often results in uncertainty regarding machine availability and unnecessary trips to the laundry room.
 
-## Expanding the ESLint configuration
+This project aims to simplify the laundry process by providing an organized, digital platform for checking machine availability and booking washing machines in advance.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Solution Overview
+
+The Smart Laundry Booking System is a web-based application that allows hostel residents to:
+
+- View real-time washing machine availability
+- Reserve laundry slots online
+- Manage their bookings
+- Improve machine utilization
+- Reduce waiting time and unnecessary visits
+
+## Features
+
+- Secure user authentication
+- Real-time machine availability
+- Online slot booking
+- Booking management
+- Automatic slot expiry
+- Responsive user interface
